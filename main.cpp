@@ -45,13 +45,13 @@ void print(SLNode * p) {
 
 
 void insert_head(SLNode *& phead, int key) {
-	std::cout << "instert *&" << std::endl;
+	//std::cout << "instert *&" << std::endl;
 	phead = new SLNode(key, phead);
 }
 
 
 void insert_head(SLNode ** phead, int i) {
-	std::cout << "instert **" << std::endl;
+	//std::cout << "instert **" << std::endl;
 	*phead = new SLNode(i, *phead);
 }
 
@@ -72,11 +72,21 @@ int main() {
 	SLNode * phead = NULL;
 	insert_head(phead, 5);
 	insert_head(phead, 2);
+	insert_head(phead, 3);
 	insert_head(phead, 7);
 
-	insert_tail(phead, 123);
-	insert_tail(phead, 1);
-	insert_tail(phead, 3);
+	print(phead);
+	std::cout << "\n\nbefore delete ------------\n\n";
+
+	SLNode * q = phead->get_next();
+	delete phead;
+
+	std::cout << "phead " << *phead << std::endl;
+	std::cout << "q value " << *q << std::endl;
+	phead = q;
+
+
+	std::cout << "\n\nafter delete------\n\n";
 	print(phead);
 
 
