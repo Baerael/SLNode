@@ -75,20 +75,20 @@ int main() {
     insert_head(phead, 3);
     insert_head(phead, 7);
 
-	print(phead);
-	std::cout << "\n\nbefore delete ------------\n\n";
+    print(phead);
+    std::cout << "\n\nbefore delete ------------\n\n";
 
-	SLNode * q = phead->get_next();
-	delete phead;
+    SLNode * q = phead->get_next();
+    delete phead;
 
-	std::cout << "phead " << *phead << std::endl;
-	std::cout << "q value " << *q << std::endl;
-	phead = q;
-
-
-	std::cout << "\n\nafter delete------\n\n";
-	print(phead);
+    std::cout << "phead " << *phead << std::endl;
+    std::cout << "q value " << *q << std::endl;
+    phead = q;
 
 
-	return 0;
+    std::cout << "\n\nafter delete------\n\n";
+    print(phead);
+
+
+    return 0;
 }
