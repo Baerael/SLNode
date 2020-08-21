@@ -7,7 +7,7 @@ public:
 	SLNode(int key, SLNode * next = NULL)
 	  : key_(key), next_(next)
 	{}
-	int get_key() 		  const { return key_;  }
+	int get_key()		const { return key_;  }
 	SLNode * get_next() const { return next_; }
 	void set_next(SLNode * next) { next_ = next; }
 
@@ -17,18 +17,16 @@ private:
 };
 
 std::ostream & operator<<(std::ostream & cout,
-						  const SLNode & node)
-{
+						  const SLNode & node) {
 	cout << "<SLNode " << &node
 		 << " key: " 		 << node.get_key()
 		 << ", next: " 	 << node.get_next()
 		 << '>';
-		 return cout;
+	return cout;
 }
 
 
-int get_size(SLNode * p) 
-{
+int get_size(SLNode * p) {
 	int size = 0;
 	while(p != NULL) {
 		p = p->get_next();
