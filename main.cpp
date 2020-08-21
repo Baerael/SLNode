@@ -55,14 +55,30 @@ void insert_head(SLNode ** phead, int i) {
 	*phead = new SLNode(i, *phead);
 }
 
+void insert_tail(SLNode * phead, int i) {
+	SLNode * tail = new SLNode(i, NULL);
+	SLNode * r = phead;
+	while (1) {
+		if (r->get_next() == NULL) {
+			std::cout << "found " << (*r) << std::endl;
+			r->set_next(tail);
+			break;
+		}
+		r = r->get_next();
+	}
+}
+
 int main() {
 	SLNode * phead = NULL;
 	insert_head(phead, 5);
 	insert_head(phead, 2);
 	insert_head(phead, 7);
 
+	insert_tail(phead, 123);
+	insert_tail(phead, 1);
+	insert_tail(phead, 3);
 	print(phead);
-	std::cout << get_size(phead) << std::endl;
+
 
 	return 0;
 }
