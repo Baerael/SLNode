@@ -50,14 +50,15 @@ void insert_head(SLNode *& phead, int key) {
 }
 
 
-void insert_head(SLNode ** phead, int i) {
+void insert_head(SLNode ** phead, int key) {
     //std::cout << "instert **" << std::endl;
-    *phead = new SLNode(i, *phead);
+    *phead = new SLNode(key, *phead);
 }
 
-void insert_tail(SLNode * phead, int i) {
-    SLNode * tail = new SLNode(i, NULL);
+void insert_tail(SLNode * phead, int key) {
+    SLNode * tail = new SLNode(key, NULL);
     SLNode * r = phead;
+
     while (1) {
         if (r->get_next() == NULL) {
             std::cout << "found " << (*r) << std::endl;
@@ -68,13 +69,31 @@ void insert_tail(SLNode * phead, int i) {
     }
 }
 
+void delete_head(SLNode ** phead) {
+    if ((*phead) != NULL) {
+        SLNode * temp = *phead;
+        *phead = (*phead)->get_next();
+        delete temp;
+    }
+}
+
+
 int main() {
     SLNode * phead = NULL;
     insert_head(phead, 5);
     insert_head(phead, 2);
     insert_head(phead, 3);
-    insert_head(phead, 7);
+    insert_tail(phead, 1337);
+    insert_head(phead, 7777);
 
+    std::cout << "\n\n";
+    print(phead);
+
+
+    return 0;
+}
+
+    /*
     print(phead);
     std::cout << "\n\nbefore delete ------------\n\n";
 
@@ -87,8 +106,4 @@ int main() {
 
 
     std::cout << "\n\nafter delete------\n\n";
-    print(phead);
-
-
-    return 0;
-}
+    */
