@@ -58,15 +58,14 @@ void insert_head(SLNode ** phead, int key) {
 void insert_tail(SLNode * phead, int key) {
     SLNode * tail = new SLNode(key, NULL);
     SLNode * r = phead;
-
     while (1) {
         if (r->get_next() == NULL) {
-            std::cout << "found " << (*r) << std::endl;
             r->set_next(tail);
             break;
         }
         r = r->get_next();
     }
+
 }
 
 void delete_head(SLNode ** phead) {
@@ -77,6 +76,23 @@ void delete_head(SLNode ** phead) {
     }
 }
 
+void delete_tail(SLNode ** phead) {
+    SLNode * prev;
+    SLNode * r = (*phead);
+
+    while (1) {
+        if (r->get_next() == NULL) {
+            prev->set_next(NULL);
+            delete r;
+            break;
+        }
+        prev = r;
+        r = r->get_next();
+    }
+    std::cout << "r: " << (*r) << std::endl;
+    std::cout << "prev: " << (*prev) << std::endl;
+}
+
 
 int main() {
     SLNode * phead = NULL;
@@ -84,26 +100,12 @@ int main() {
     insert_head(phead, 2);
     insert_head(phead, 3);
     insert_tail(phead, 1337);
-    insert_head(phead, 7777);
+    //insert_head(phead, 7777);
+
+    delete_tail(&phead);
 
     std::cout << "\n\n";
     print(phead);
 
-
     return 0;
 }
-
-    /*
-    print(phead);
-    std::cout << "\n\nbefore delete ------------\n\n";
-
-    SLNode * q = phead->get_next();
-    delete phead;
-
-    std::cout << "phead " << *phead << std::endl;
-    std::cout << "q value " << *q << std::endl;
-    phead = q;
-
-
-    std::cout << "\n\nafter delete------\n\n";
-    */

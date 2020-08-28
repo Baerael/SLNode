@@ -171,3 +171,30 @@ int main() {
 
 	return 0;
 }
+    /*
+    print(phead);
+    std::cout << "\n\nbefore delete ------------\n\n";
+
+    SLNode * q = phead->get_next();
+    delete phead;
+
+    std::cout << "phead " << *phead << std::endl;
+    std::cout << "q value " << *q << std::endl;
+    phead = q;
+
+
+    std::cout << "\n\nafter delete------\n\n";
+    */
+
+	 /*
+    while((r = r->get_next()) -= NULL) {
+        std::cout << *r << std::endl;
+    std::cout << "--------" << std::endl;
+    }
+    std::cout << "============" << std::endl;
+    r->set_next(tail);
+    std::cout << *r << std::endl;
+    //r->set_next(tail);
+
+
+    */
