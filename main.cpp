@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cstddef>
-
 // SinglyLinked
 class SLNode {
 public:
@@ -26,86 +25,120 @@ std::ostream & operator<<(std::ostream & cout,
 }
 
 
-int get_size(SLNode * p) {
-    int size = 0;
-    while(p != NULL) {
-    p = p->get_next();
-        size++;
+class SLList {
+public:
+    SLList()
+    : phead_(NULL), size_(0)
+    {}
+
+    void insert_head(int key) {
+        phead_ = new SLNode(key, phead_);
     }
-    return size;
-}
 
+    void insert_tail(int key) {
+        SLNode * tail = new SLNode(key, NULL);
+        SLNode * r = phead_;
+        while (1) {
+            if (r->get_next() == NULL) {
+                r->set_next(tail);
+                break;
+            }
+            r = r->get_next();
+        }
+    }
 
-void print(SLNode * p) {
-    while (p != NULL) {
-        std::cout << (*p) << std::endl;
+    void delete_head() {
+        if ((phead_) != NULL) {
+            SLNode * temp = phead_;
+            phead_ = phead_->get_next();
+            delete temp;
+        }
+    }
+
+    void delete_tail() {
+        SLNode * prev;
+        SLNode * r = phead_;
+
+        while (1) {
+            if (r->get_next() == NULL) {
+                prev->set_next(NULL);
+                delete r;
+                break;
+            }
+            prev = r;
+            r = r->get_next();
+        }
+        std::cout << "r: " << (*r) << std::endl;
+        std::cout << "prev: " << (*prev) << std::endl;
+    }
+
+    void print() {
+        SLNode * p = phead_;
+        while (p != NULL) {
+            std::cout << (*p) << std::endl;
+            p = p->get_next();
+        }
+    }
+
+    SLNode * get_next() const { 
+        return phead_->get_next(); 
+    }
+
+    int get_size() {
+        SLNode * p = phead_;
+        int size = 0;
+        while(p != NULL) {
         p = p->get_next();
-    }
-}
-
-
-void insert_head(SLNode *& phead, int key) {
-    //std::cout << "instert *&" << std::endl;
-    phead = new SLNode(key, phead);
-}
-
-
-void insert_head(SLNode ** phead, int key) {
-    //std::cout << "instert **" << std::endl;
-    *phead = new SLNode(key, *phead);
-}
-
-void insert_tail(SLNode * phead, int key) {
-    SLNode * tail = new SLNode(key, NULL);
-    SLNode * r = phead;
-    while (1) {
-        if (r->get_next() == NULL) {
-            r->set_next(tail);
-            break;
+            size++;
         }
-        r = r->get_next();
+        return size;
     }
 
-}
+    // not working
+    void find(int key) {
+        SLNode * r = phead_;
+        while(1) {
+            if (r->get_key() == key)
+                std::cout << "check: " << r->get_key() << std::endl;
 
-void delete_head(SLNode ** phead) {
-    if ((*phead) != NULL) {
-        SLNode * temp = *phead;
-        *phead = (*phead)->get_next();
-        delete temp;
-    }
-}
-
-void delete_tail(SLNode ** phead) {
-    SLNode * prev;
-    SLNode * r = (*phead);
-
-    while (1) {
-        if (r->get_next() == NULL) {
-            prev->set_next(NULL);
-            delete r;
-            break;
+            if (r->get_next() == NULL) {
+                std::cout << "not found" << std::endl;
+                break;
+            }
+            r = r->get_next();
         }
-        prev = r;
-        r = r->get_next();
     }
-    std::cout << "r: " << (*r) << std::endl;
-    std::cout << "prev: " << (*prev) << std::endl;
+
+    class iterator {
+    private:
+        SLNode * p; 
+    };
+
+
+private:
+    SLNode * phead_;
+    int size_;
+};
+
+// list cout stream
+std::ostream & operator<<(std::ostream & cout,
+                          const SLList & list) {
+	cout << "<List " << &list
+		 << "> ";
+    return cout;
 }
+
 
 
 int main() {
-    SLNode * phead = NULL;
-    insert_head(phead, 5);
-    insert_head(phead, 2);
-    insert_head(phead, 3);
-    insert_tail(phead, 1337);
-    //insert_head(phead, 7777);
+    SLList list;
+    list.insert_head(5);
+    list.insert_head(100);
+    list.insert_head(100);
+    list.insert_head(100);
+    list.print();
 
-    delete_tail(&phead);
-
-    std::cout << "\n\n";
-    print(phead);
+    std::cout << '\n';
 
     return 0;
 }
